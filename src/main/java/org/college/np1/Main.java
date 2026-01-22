@@ -187,9 +187,9 @@ public class Main {
             }
 
             for (int f = 0; f<5; f++){
-                if (colorLetter[f]==0) System.out.println(wordsInput[f]);
-                if (colorLetter[f]==1) System.out.println(ANSI_YELLOW + wordsInput[f]+ANSI_RESET);
-                if (colorLetter[f]==2) System.out.println(ANSI_GREEN + wordsInput[f] +ANSI_RESET);
+                if (colorLetter[f]==0) System.out.println(playerInput.charAt(f));
+                if (colorLetter[f]==1) System.out.println(ANSI_YELLOW + playerInput.charAt(f) + ANSI_RESET);
+                if (colorLetter[f]==2) System.out.println(ANSI_GREEN + playerInput.charAt(f) + ANSI_RESET);
             }
         }
         System.out.println("");
