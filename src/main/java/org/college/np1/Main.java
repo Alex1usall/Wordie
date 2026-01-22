@@ -3,6 +3,10 @@ package org.college.np1;
 import java.util.Scanner;
 import java.security.SecureRandom;
 public class Main {
+
+    static String playerInput;
+    static String colorLetter;
+
     public static void main(String[] args) {
 
 
@@ -23,7 +27,9 @@ public class Main {
             String twoPlayers = usersInput();
         }
 
-        System.out.println("У вас є 6 спроб");
+
+        System.out.printf("Напишіть слово, яке на вашу думку загадане \n У вас є 6 спроб");
+        playerInput();
 
         sc.close();
 
@@ -61,6 +67,9 @@ public class Main {
 
         String[] words = null;
 
+
+        // выбор слова компьютером
+
         if (one == true) {
             String list1 = "Арена Базар Балет Банка Баран Батон Берег Білка Білий Бірка Бокал Бонус Бочка Браво Брама Брова Бруд Будка Букет Булка Буран Вагон Вахта Весна Весло Відео Візок Війна Вікно Вілла Віник Візит Вірус Вітер Влада Вокал Ворон Ворог Вступ Вчора Гараж Глина Глузд Голос Гольф Гонор Город Горох Гроза Група Груди Гумор Гусак Дамба Двері Декор Декан Десна Диван Дикий Димар Дірка Діток Діжка Доказ Догма Донор Дошка Драка Дрова Думка Дупло Дурак Дужий Душно Екран Емаль Епоха Етика Ефір Жарко Жести Живіт Живий Жінка Жовта Жорна Жупан Завод Загін Задум Зайве Заказ Закид Залив Замок Замір Запас Запах Запис Зараз Заряд Засув Затор Заява Зброя Звуки Зебра Земля Зірка Зміна Знаки Замок Зрада Зріст Зсуви Ікона Імідж Імена Кабан Казан Казка Канал Канат Канон Карти Каска Катер Качка Квіти Кермо Килим Кирка Китай Кішка Класс Кліпи Клоун Клуби Книга Кобза Козак Козел Козир Кокос Колія Колос Комар Комік Комір Контр Конус Копач Копія Короб Корок Косар Котел Кофта Крама Краса Криза Крик Крило Круги Крупа Кузов Кулак Кумир Купол Кусок Кухня Лампа Лапка Ласка Легко Ледар Лепет Лиман Лимон Липка Листя Лікар Лілія Лінія Ліжко Літак Логін Лодка Ложка Лопух Лотос Лоток Луска Любов Мавпа Магія Мазут Маляр Малюк Манія Марка Марно Маска Масло Масти Матчі Матор Матро Мафія Меблі Медаль Метав Метал Метан Мітла Метро Мирна Миска Мишка Мізер Мізки Місце Місто Мітка Міцно Млин Мозок Мокра Молод Молот Монах Морда Мороз Мости Мотив Морва Морква Моряк Музей Музика Муляж Муляр Мумія Муфта Набір Навик Наган Надія Назад Назва Накат Накид Наказ Налог Намив Намір Напад Напій Напис Народ Насос Наука Нафта Нахил Нація Невод Нелад Нерви Нижня Низка Нитки Нитка Німфа Нічка Новий Новик Ножка Номер Норма Носки Носик Носок Нотка Облич Обмін Образ Обрій Оброк Обсяг Овочі Огляд Одежа Один Озеро Океан Окрас Окунь Олива Олово Олень Опера Опіка Опора Орган Орден Орел Осінь Острів Отвір Отара Офіси Оцінка Очама";
             words = list1.trim().split(" ");
@@ -73,16 +82,9 @@ public class Main {
         }
 
         int randomIndex = random.nextInt(words.length);
-        // цикл, который выбирает рандом слово из списков
-        for (int i = 0; i < words.length; i++) {
-            if (i == randomIndex) {
 
-                String hiddenWord = words[i];
-
-            }
-            break;
-        }
-        System.out.println("Комп'ютеh загадав слово");
+        String hiddenWord = words[random.nextInt(words.length)];
+        System.out.println("Комп'ютер загадав слово");
         sc.close();
     }
 
@@ -119,13 +121,79 @@ public class Main {
         for (int i = 0; i < input.length(); i++) {
             System.out.print("*");
 
-
         }
         sc.close();
         return input;
     }
 
+    public static void playerInput() {
+
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Напишіть слово, яке на вашу думку загадане:");
+        playerInput = sc.nextLine();
+
+        // проверка на праивльность длины слова
+        do {
+            if (playerInput.length() < 5) {
+                System.out.println("Ви ввели слово менше п'яти символів. Будь ласка, спробуйте ще раз");
+            }
+            else if (playerInput.length() > 5) {
+                System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз");
+            }
+            else {
+                break;
+            }
+        }
+        while (true);
+
+        // проверка на наличие цифр в слове
+        if (playerInput.matches(".*\\d.*")) {
+            System.out.println("Помилка: у слові є цифра! Спробуйте ще раз спробу");
+        } else {
+            System.out.println(" ");
+        }
 
 
+
+    }
+
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static boolean PrintWordColor(char[]inputWord,char[] correctWord) {
+
+        boolean correct = true;
+        char[] answer = correctWord;
+        int[] colorLetter = new int[5];
+
+        int wordsInput = 0;
+
+        for (int i = 0; i < 5; ) {
+            if (playerInput.charAt(i) == answer[i]) {
+                colorLetter[i] = 2;
+            } else correct = false;
+        }
+
+
+        for (int j = 0; j < 5; j++) {
+            for (int k=0; k<5; k++) {
+
+                if (playerInput.charAt(j) == answer[k] && colorLetter[j] != 2) {
+                    colorLetter[j] = 1;
+                    answer[k] = '-';
+
+                }
+            }
+
+            for (int f = 0; f<5; f++){
+                if (colorLetter[f]==0) System.out.println(wordsInput[f]);
+                if (colorLetter[f]==1) System.out.println(ANSI_YELLOW + wordsInput[f]+ANSI_RESET);
+                if (colorLetter[f]==2) System.out.println(ANSI_GREEN + wordsInput[f] +ANSI_RESET);
+            }
+        }
+        System.out.println("");
+        return correct;
+    }
 
 }
