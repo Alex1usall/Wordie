@@ -6,8 +6,14 @@ public class Main {
 
     static String playerInput;
     static String colorLetter;
+    static String hiddenWord;
+    static String answer;
 
-    public static void main(String[] args) {
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+
+    public static void main() {
 
 
         Scanner sc = new Scanner(System.in);
@@ -17,6 +23,7 @@ public class Main {
 
         int turnplayer = sc.nextInt();
 
+        sc.nextLine();
 
 
         if (turnplayer == 1) {
@@ -24,13 +31,30 @@ public class Main {
             turnLevel();
         } else if (turnplayer == 2) {
             System.out.println("Ви вибрали режим на два гравця");
-            String twoPlayers = usersInput();
+            hiddenWord = usersInput();
+
         }
 
 
         System.out.printf("Напишіть слово, яке на вашу думку загадане \n У вас є 6 спроб");
-        playerInput();
 
+        for (int i = 0; i < 6; i++) {
+            playerInput();
+            if (PrintWordColor(playerInput.toCharArray(), hiddenWord.toCharArray())) {
+                System.out.printf("Ви виграли! \n Бажаєте пчати нову гру ? \n");
+
+                if (getAnswer().equals("Так") || getAnswer().equals("Да")){
+                    main();
+                }
+                else if (getAnswer().equals("Нет") || getAnswer().equals("Ні")){
+                    System.out.printf("Дякую, що зіграли у нашу гру!☺\uFE0F \n Автори: leshka, fr1zi");
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("Ви програли. Слово було: " + hiddenWord);
 
     }
 
@@ -82,7 +106,8 @@ public class Main {
 
         int randomIndex = random.nextInt(words.length);
 
-        String hiddenWord = words[random.nextInt(words.length)];
+        hiddenWord = words[random.nextInt(words.length)];
+
         System.out.println("Комп'ютер загадав слово");
         System.out.println("*****");
 
@@ -135,7 +160,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Напишіть слово, яке на вашу думку загадане:");
-        playerInput = sc.nextLine();
 
         int i = 0;
 
@@ -160,51 +184,71 @@ public class Main {
         while (true);
 
 
+
+
         //счетчик попыток
         if (i > 6){
-            System.out.println("❌ Ви використали всі 6 спроб");
-        }
+            System.out.printf("❌ Ви використали всі 6 спроб \n Бажаєте пчати нову гру ? \n");
 
+            if (getAnswer().equals("Так") || getAnswer().equals("Да")){
+                main();
+            }
+            else if (getAnswer().equals("Нет") || getAnswer().equals("Ні")){
+                System.out.printf("Дякую, що зіграли у нашу гру!☺\uFE0F \n Автори: leshka, fr1zi");
+            }
+        }
 
     }
 
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_YELLOW = "\u001B[33m";
-    public static final String ANSI_GREEN = "\u001B[32m";
-    public static boolean PrintWordColor(char[]inputWord,char[] correctWord) {
+
+    public static boolean PrintWordColor(char[] inputWord, char[] correctWord) {
 
         boolean correct = true;
-        char[] answer = correctWord;
+        char[] answer = correctWord.clone();
         int[] colorLetter = new int[5];
 
-        int wordsInput = 0;
-
-        for (int i = 0; i < 5; ) {
-            if (playerInput.charAt(i) == answer[i]) {
+        for (int i = 0; i < 5; i++) {
+            if (inputWord[i] == answer[i]) {
                 colorLetter[i] = 2;
-            } else correct = false;
+                answer[i] = ' ';
+            } else {
+                correct = false;
+            }
         }
 
-
-        for (int j = 0; j < 5; j++) {
-            for (int k=0; k<5; k++) {
-
-                if (playerInput.charAt(j) == answer[k] && colorLetter[j] != 2) {
-                    colorLetter[j] = 1;
-                    answer[k] = '-';
-
+        for (int i = 0; i < 5; i++) {
+            if (colorLetter[i] == 0) {
+                for (int j = 0; j < 5; j++) {
+                    if (inputWord[i] == answer[j]) {
+                        colorLetter[i] = 1;
+                        answer[j] = ' ';
+                        break;
+                    }
                 }
             }
+        }
 
-            for (int f = 0; f<5; f++){
-                if (colorLetter[f]==0) System.out.println(playerInput.charAt(f));
-                if (colorLetter[f]==1) System.out.println(ANSI_YELLOW + playerInput.charAt(f) + ANSI_RESET);
-                if (colorLetter[f]==2) System.out.println(ANSI_GREEN + playerInput.charAt(f) + ANSI_RESET);
+        for (int i = 0; i < 5; i++) {
+            if (colorLetter[i] == 2) {
+                System.out.print(ANSI_GREEN + inputWord[i] + ANSI_RESET);
+            } else if (colorLetter[i] == 1) {
+                System.out.print(ANSI_YELLOW + inputWord[i] + ANSI_RESET);
+            } else {
+                System.out.print(inputWord[i]);
             }
         }
-        System.out.println("");
+        System.out.println();
+
         return correct;
     }
 
+public static String getAnswer() {
+
+        Scanner sc = new Scanner(System.in);
+        String answer = sc.next();
+
+        sc.nextLine();
+        return answer;
+}
 
 }
