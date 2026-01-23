@@ -31,7 +31,6 @@ public class Main {
         System.out.printf("Напишіть слово, яке на вашу думку загадане \n У вас є 6 спроб");
         playerInput();
 
-        sc.close();
 
     }
 
@@ -85,7 +84,7 @@ public class Main {
 
         String hiddenWord = words[random.nextInt(words.length)];
         System.out.println("Комп'ютер загадав слово");
-        sc.close();
+
     }
 
     public static String usersInput() {
@@ -122,7 +121,7 @@ public class Main {
             System.out.print("*");
 
         }
-        sc.close();
+
         return input;
     }
 
