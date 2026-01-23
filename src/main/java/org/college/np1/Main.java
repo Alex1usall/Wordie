@@ -84,6 +84,7 @@ public class Main {
 
         String hiddenWord = words[random.nextInt(words.length)];
         System.out.println("Комп'ютер загадав слово");
+        System.out.println("*****");
 
     }
 
@@ -93,15 +94,20 @@ public class Main {
 
         System.out.println("Хтось з вас загадує слоово. (НЕ ПІДГЛЯДАТИ!!!!!)");
 
-        String input = sc.nextLine();
+        String input;
 
         // проверка на праивльность длины слова
         do {
+            input = sc.nextLine();
+
             if (input.length() < 5) {
-                System.out.println("Ви ввели слово менше п'яти символів. Будь ласка, спробуйте ще раз");
+                System.out.println("Ви ввели слово менше п'яти символів. Будь ласка, спробуйте ще раз...");
             }
             else if (input.length() > 5) {
-                System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз");
+                System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз...");
+            }
+            else if (input.matches(".*\\d.*")) {
+                System.out.println("Помилка: у слові є цифра! Спробуйте ще раз...");
             }
             else {
                 break;
@@ -109,18 +115,17 @@ public class Main {
         }
         while (true);
 
-        // проверка на наличие цифр в слове
-        if (input.matches(".*\\d.*")) {
-            System.out.println("Помилка: у слові є цифра! Спробуйте ще раз спробу");
-        } else {
-            System.out.println(" ");
-        }
+
 
 // цикл который кодирует слово загадоное
-        for (int i = 0; i < input.length(); i++) {
-            System.out.print("*");
-
+        for ( int f = 0; f < 10; f++){
+            System.out.println(" ");
         }
+        System.out.println();
+
+        System.out.println("Слово загадане, та приховане");
+        System.out.println("*****");
+
 
         return input;
     }
@@ -134,24 +139,25 @@ public class Main {
 
         // проверка на праивльность длины слова
         do {
+            playerInput = sc.nextLine();
+
             if (playerInput.length() < 5) {
-                System.out.println("Ви ввели слово менше п'яти символів. Будь ласка, спробуйте ще раз");
+                System.out.println("Ви ввели слово менше п'яти символів. Будь ласка, спробуйте ще раз...");
             }
             else if (playerInput.length() > 5) {
-                System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз");
+                System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз...");
             }
             else {
                 break;
             }
+            // проверка на наличие цифр в слове
+            if (playerInput.matches(".*\\d.*")) {
+                System.out.println("Помилка: у слові є цифра! Спробуйте ще раз спробу");
+            } else {
+                System.out.println(" ");
+            }
         }
         while (true);
-
-        // проверка на наличие цифр в слове
-        if (playerInput.matches(".*\\d.*")) {
-            System.out.println("Помилка: у слові є цифра! Спробуйте ще раз спробу");
-        } else {
-            System.out.println(" ");
-        }
 
 
 
