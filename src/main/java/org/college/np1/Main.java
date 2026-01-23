@@ -137,6 +137,8 @@ public class Main {
         System.out.println("Напишіть слово, яке на вашу думку загадане:");
         playerInput = sc.nextLine();
 
+        int i = 0;
+
         // проверка на праивльность длины слова
         do {
             playerInput = sc.nextLine();
@@ -147,18 +149,21 @@ public class Main {
             else if (playerInput.length() > 5) {
                 System.out.println("Ви ввели слово більше п'яти символів. Будь ласка, спробуйте ще раз...");
             }
-            else {
-                break;
+            else if (playerInput.matches(".*\\d.*")) {
+                System.out.println("Помилка: у слові є цифра! Спробуйте ще раз...");
             }
-            // проверка на наличие цифр в слове
-            if (playerInput.matches(".*\\d.*")) {
-                System.out.println("Помилка: у слові є цифра! Спробуйте ще раз спробу");
-            } else {
-                System.out.println(" ");
+            else {
+                i++;
+                break;
             }
         }
         while (true);
 
+
+        //счетчик попыток
+        if (i > 6){
+            System.out.println("❌ Ви використали всі 6 спроб");
+        }
 
 
     }
@@ -200,5 +205,6 @@ public class Main {
         System.out.println("");
         return correct;
     }
+
 
 }
