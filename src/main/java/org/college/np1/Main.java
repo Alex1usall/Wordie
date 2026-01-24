@@ -152,7 +152,7 @@ public class Main {
 
         System.out.println("Напишіть слово, яке на вашу думку загадане:");
 
-        int i = 0;
+        int attemptsLeft = 6;
 
         // проверка на праивльность длины слова
         do {
@@ -165,15 +165,15 @@ public class Main {
             } else if (playerInput.matches(".*\\d.*")) {
                 System.out.println("Помилка: у слові є цифра! Спробуйте ще раз...");
             } else {
-                i++;
+                attemptsLeft--;
+                System.out.println("У вас залишилось " + attemptsLeft + " спроб");
                 break;
             }
         }
         while (true);
 
-
         //счетчик попыток
-        if (i > 6) {
+        if (attemptsLeft > 6) {
             System.out.printf("❌ Ви використали всі 6 спроб \n Бажаєте пчати нову гру ? \n");
 
             newGame();
