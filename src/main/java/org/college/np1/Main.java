@@ -260,8 +260,9 @@ public class Main {
     public static void newGame() {
         String answer = getAnswer();
 
-        while (true) {
-            try{
+        for (int i = 0; i < answer.length(); i++) {
+            char ch = answer.charAt(i);
+
                 if (answer.equals("ТАК") || answer.equals("ДА")) {
                     main();
                 }
@@ -271,10 +272,9 @@ public class Main {
                 {
                     System.out.println("Ви ввели не логічну відповідь. Спробуйте, будь ласка, ще раз...");
                 }
-                break;
-            }catch (IllegalArgumentException e){
-                System.out.println("Пвторіть спробу...");
-            }
+                if (!((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))) {
+                    throw new IllegalArgumentException("Ошибка: только английские буквы!");
+                }
 
         }
 
